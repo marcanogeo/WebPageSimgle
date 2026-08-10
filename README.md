@@ -3,25 +3,6 @@ WebPageSimple — Landing con Astro + Vue + Tailwind
 
 Proyecto de landing page creado con Astro, Vue (islas) y Tailwind CSS. Lista para editar y desplegar, contiene componentes estáticos (.astro) y componentes hidratados (Vue) donde hace falta interactividad.
 
-Estructura principal (resumen)
-
-src/
-├── components/
-│   ├── Header.astro        Navegación fija con menú móvil (estático en .astro)
-│   ├── Hero.astro          Sección principal con CTA (estático)
-│   ├── Services.astro      Grid de servicios generado desde un array de datos
-│   ├── ServiceCard.astro   Carta individual de servicio
-│   ├── About.astro         Narrativa + valores del equipo
-│   ├── WhyUs.astro        Sección adicional de ventajas
-│   ├── ContactForm.vue     Formulario con estado de envío (componente Vue, client:visible)
-│   └── Footer.astro        Pie de página con enlaces y redes
-├── layouts/
-│   └── Layout.astro        <head>, meta tags y estilos globales
-├── pages/
-│   └── index.astro         Ensambla todos los componentes
-└── styles/
-  └── global.css           Fuentes, reset y utilidades base
-
 Puntos importantes sobre hidratación
 
 La mayoría de las piezas usan .astro y se renderizan estáticamente para minimizar JS. El formulario de contacto (ContactForm.vue) es una isla Vue y se instancia en index.astro con client:visible.
