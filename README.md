@@ -1,96 +1,67 @@
-Landing Page — Astro + Vue + Tailwind CSS
+WebPageSimple — Landing con Astro + Vue + Tailwind
 
-Maquetación de landing page dividida en componentes reutilizables, lista para producción.
 
-Estructura
+Proyecto de landing page creado con Astro, Vue (islas) y Tailwind CSS. Lista para editar y desplegar, contiene componentes estáticos (.astro) y componentes hidratados (Vue) donde hace falta interactividad.
+
+Estructura principal (resumen)
 
 src/
 ├── components/
-│   ├── Header.vue          Navegación fija con menú móvil (isla Vue, client:load)
-│   ├── Hero.astro          Sección principal con CTA (estático, sin JS)
-│   ├── Services.astro      Grid de servicios generado desde un array de datos (estático)
-│   ├── About.astro         Narrativa + valores del equipo (estático)
-│   ├── ContactForm.vue     Formulario con estado de envío (isla Vue, client:visible)
-│   └── Footer.astro        Pie de página con enlaces y redes (estático)
+│   ├── Header.astro        Navegación fija con menú móvil (estático en .astro)
+│   ├── Hero.astro          Sección principal con CTA (estático)
+│   ├── Services.astro      Grid de servicios generado desde un array de datos
+│   ├── ServiceCard.astro   Carta individual de servicio
+│   ├── About.astro         Narrativa + valores del equipo
+│   ├── WhyUs.astro        Sección adicional de ventajas
+│   ├── ContactForm.vue     Formulario con estado de envío (componente Vue, client:visible)
+│   └── Footer.astro        Pie de página con enlaces y redes
 ├── layouts/
 │   └── Layout.astro        <head>, meta tags y estilos globales
 ├── pages/
 │   └── index.astro         Ensambla todos los componentes
 └── styles/
-└── global.css          Fuentes, reset y utilidades base
+  └── global.css           Fuentes, reset y utilidades base
 
-Por qué solo dos componentes son Vue
+Puntos importantes sobre hidratación
 
-Astro renderiza .astro como HTML estático por defecto (0 KB de JS). Solo Header y
-ContactForm necesitan interactividad en el cliente (menú móvil, estado de envío), así
-que son los únicos hidratados como islas Vue:
+La mayoría de las piezas usan .astro y se renderizan estáticamente para minimizar JS. El formulario de contacto (ContactForm.vue) es una isla Vue y se instancia en index.astro con client:visible.
 
-Header.vue usa client:load porque el menú debe responder desde el primer render.
-ContactForm.vue usa client:visible porque puede esperar a que el usuario haga scroll
-hasta el formulario antes de cargar su JS.
+Correcciones respecto al README anterior
 
-Si prefieres convertir Hero, Services, About o Footer a Vue también (por ejemplo,
-para reutilizar lógica con otra app Vue), el patrón es el mismo: crea el .vue, impórtalo
-en index.astro y añade la directiva client:* que corresponda según si necesita
-interactividad inmediata (client:load), diferida (client:idle) o solo al hacerse
-visible (client:visible).
+- Header se proporciona como Header.astro (no Header.vue). El README original referenciaba Header.vue por error.
+- ContactForm.vue es actualmente una demo que simula el envío (delay local). No incluye props para proveedores (Netlify/Formspree) ni lógica de envío a terceros. Si quieres soporte para Netlify/Formspree, hay que añadir los props y adaptar la plantilla del <form> en src/components/ContactForm.vue.
+- No se han encontrado archivos tailwind.config.* en el repo. Si Tailwind no está configurado, ejecutar "npx tailwindcss init -p" y añadir la configuración recomendada en astro.config.
+- Se eliminaron rutas incorrectas que apuntaban a carpetas en Downloads.
 
-Instalación
+Instalación y desarrollo
+
+Requisitos: Node.js >= 22.12.0 (según package.json).
 
 npm install
 npm run dev
 
-El sitio queda disponible en http://localhost:4321.
+Por defecto Astro sirve en http://localhost:4321.
 
-Build
+Build y preview
 
 npm run build
 npm run preview
 
-Formulario de contacto
+Formularios y despliegue
 
-ContactForm.vue admite dos proveedores mediante props, sin necesidad de backend propio.
-El envío se hace por fetch para mostrar estados de "enviando / éxito / error" sin
-recargar la página.
+Actualmente ContactForm.vue muestra el estado de envío localmente y limpia campos tras una simulación. Para integrar con Netlify:
+- Añadir un <form> con data-netlify="true" y los campos necesarios dentro de ContactForm.vue (o incluir un <form hidden> en el HTML generado) para que Netlify detecte el formulario en el build.
 
-Opción A — Netlify Forms (por defecto)
+Para Formspree u otros proveedores:
+- Añadir props (provider, formId) a ContactForm.vue y hacer fetch al endpoint del proveedor desde la función submitForm.
 
-Al desplegar en Netlify:
+Sugerencia rápida para habilitar Netlify (ejemplo mínimo):
+- Añadir attribute data-netlify="true" al <form> y un input name="form-name" value="contact" oculto. Luego desplegar en Netlify.
 
-Sube el proyecto a un repositorio conectado a Netlify.
-Netlify detecta el formulario en el HTML generado en build gracias al <form> oculto
-(hidden) con data-netlify="true" que incluye el componente — es necesario porque
-Netlify escanea el HTML estático del build, no ejecuta el JS de Vue para detectarlo.
-Las respuestas aparecerán en Site settings → Forms dentro del panel de Netlify.
+Contribuciones
 
-No cambies nada en index.astro; el uso por defecto ya es:
+Abrir issues o PRs para añadir soporte directo a proveedores, ajustar estilos o añadir contenido. Si quieres, puedo implementar soporte para Netlify o Formspree en ContactForm.vue.
 
-<ContactForm client:visible />
+Licencia
 
-Opción B — Formspree
-
-Crea un formulario en formspree.io y copia su ID
-(la parte final de tu endpoint, ej. xandalzp en https://formspree.io/f/xandalzp).
-En ../../../Downloads/landing-astro 2/src/pages/index.astro, sustituye:
-
-<ContactForm client:visible provider="formspree" formspreeId="TU_ID_DE_FORMSPREE" />
-
-El componente enviará automáticamente un POST con JSON a
-https://formspree.io/f/TU_ID_DE_FORMSPREE.
-
-Personalización rápida
-
-Colores y tipografías: editar ../../../Downloads/landing-astro 2/tailwind.config.cjs (paleta teal/gold/cream/ink)
-y la importación de Google Fonts en ../../../Downloads/landing-astro 2/src/styles/global.css.
-Contenido de servicios: editar el array services al inicio de Services.astro.
-Textos e imágenes del Hero: editar directamente Hero.astro.
-Enlaces del footer: editar el array columns en Footer.astro.
-
-Accesibilidad y buenas prácticas incluidas
-
-HTML semántico (header, main, section, footer, nav).
-Foco de teclado visible en enlaces, botones y campos de formulario.
-Menú móvil con aria-expanded y aria-controls.
-Honeypot anti-spam en el formulario de Netlify.
-Respeta prefers-reduced-motion.
-Enlace "Saltar al contenido" para navegación por teclado/lectores de pantalla.
+MIT
