@@ -1,0 +1,30 @@
+---
+const year = new Date().getFullYear();
+
+const links = [
+      { label: 'Servicios', href: '#servicios' },
+      { label: 'Nosotros', href: '#nosotros' },
+      { label: 'Contacto', href: '#contacto' },
+];
+---
+
+<footer class="border-t border-white/5 bg-primary-light px-6 py-12 text-white">
+  <div class="mx-auto max-w-6xl">
+    <div class="flex flex-col items-center justify-between gap-6 md:flex-row">
+      <div class="text-center md:text-left">
+      <a href="#inicio" class="font-display text-xl font-semibold tracking-tight text-white">
+        Nexo<span class="text-accent">.</span>
+      </a>
+      <p class="mt-1 text-sm text-slate-500">
+        Soluciones digitales para pequeños negocios
+      </p>
+      </div>
+      <nav aria-label="Pie de página" class="flex flex-wrap justify-center gap-6">
+        {links.map((link) => (
+          <a href={link.href} class="text-sm text-slate-400 transition-colors hover:text-white">{link.label}</a>
+        ))}
+      </nav>
+    </div>
+    <p class="mt-10 border-t border-white/5 pt-8 text-center text-sm text-slate-600">&copy; {year} Nexo Digital. Todos los derechos reservados.</p>
+  </div>
+</footer>

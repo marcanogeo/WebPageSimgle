@@ -1,0 +1,167 @@
+/* src/styles/global.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap');
+
+@import "tailwindcss";
+
+/* ========================================
+   DESIGN TOKENS
+   ======================================== */
+
+@theme {
+  /* Colores principales */
+  --color-primary: #0F172A;
+  --color-primary-light: #1E293B;
+  --color-primary-dark: #0B1120;
+
+  --color-brand: #1D4ED8;
+  --color-brand-light: #3B82F6;
+
+  --color-accent: #F59E0B;
+  --color-accent-light: #FCD34D;
+  --color-accent-dark: #D97706;
+
+  /* Colores neutros */
+  --color-surface: #F8FAFC;
+  --color-surface-alt: #F1F5F9;
+
+  --color-text: #1E293B;
+  --color-text-muted: #64748B;
+
+  --color-border: #E2E8F0;
+
+  /* Tipografía */
+  --font-sans: "Inter", sans-serif;
+  --font-display: "Fraunces", serif;
+
+  --container-content: 72rem;
+}
+
+
+/* ========================================
+   BASE
+   ======================================== */
+@layer base {
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    margin: 0;
+    min-width: 320px;
+
+    font-family: var(--font-sans);
+    color: var(--color-text);
+    background-color: #ffffff;
+
+    line-height: 1.6;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  /* ========================================
+     TYPOGRAPHY
+     ======================================== */
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+    color: var(--color-primary);
+    line-height: 1.15;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+
+  /* ========================================
+     ELEMENTS
+     ======================================== */
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  button,
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  img,
+  picture,
+  svg {
+    display: block;
+    max-width: 100%;
+  }
+
+
+  /* ========================================
+     ACCESSIBILITY
+     ======================================== */
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+
+
+  /* ========================================
+     TEXT SELECTION
+     ======================================== */
+
+  ::selection {
+    background-color: var(--color-accent);
+    color: var(--color-primary);
+  }
+
+}
+
+@layer utilities {
+  .container-page {
+    @apply mx-auto w-full max-w-content px-6 sm:px-8 lg:px-8;
+  }
+
+  .eyebrow {
+    @apply text-sm font-semibold uppercase tracking-[0.2em] text-accent;
+  }
+}
+
+
+
+/* ========================================
+   REDUCED MOTION
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
