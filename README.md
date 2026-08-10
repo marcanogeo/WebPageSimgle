@@ -39,10 +39,3 @@ Para Formspree u otros proveedores:
 Sugerencia rápida para habilitar Netlify (ejemplo mínimo):
 - Añadir attribute data-netlify="true" al <form> y un input name="form-name" value="contact" oculto. Luego desplegar en Netlify.
 
-Contribuciones
-
-Abrir issues o PRs para añadir soporte directo a proveedores, ajustar estilos o añadir contenido. Si quieres, puedo implementar soporte para Netlify o Formspree en ContactForm.vue.
-
-Licencia
-
-MIT
