@@ -1,6 +1,6 @@
 # Nexo Digital — Landing page
 
-Landing page responsive para una empresa ficticia de servicios digitales. El proyecto forma parte de mi portfolio y documenta el proceso de convertir una propuesta creada con Figma Make en una implementación frontend propia, accesible y mantenible.
+Landing page responsive para una empresa ficticia de servicios digitales. El proyecto documenta el proceso de convertir una propuesta creada con Figma Make en una implementación frontend propia, accesible y mantenible.
 
 La referencia visual original fue generada con React, TypeScript y Tailwind CSS. Para la versión final se replanteó la arquitectura utilizando Astro para el contenido estático y Vue únicamente donde existe interacción.
 
