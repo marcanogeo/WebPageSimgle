@@ -120,13 +120,6 @@ El formulario actual es una demostración de interfaz: valida los campos con HTM
 
 Antes de publicar el sitio será necesario conectarlo a un backend o proveedor de formularios, por ejemplo Formspree o Netlify Forms, y actualizar el texto de confirmación.
 
-## Próximos pasos
-
-- Conectar el formulario a un servicio real.
-- Añadir páginas legales y enlaces sociales definitivos.
-- Incorporar una URL pública y capturas del resultado al README.
-- Realizar una auditoría final con Lighthouse antes del despliegue.
-
 ## Créditos
 
 - Diseño de referencia creado con Figma Make.
